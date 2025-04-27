@@ -18,4 +18,6 @@ class AppStyles {
       fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.primaryDark);
   static TextStyle bold14Black = GoogleFonts.elMessiri(
       fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.blackColor);
+  static TextStyle White14 = GoogleFonts.elMessiri(
+  fontSize: 14, color: AppColors.whiteColor);
 }
