@@ -1,38 +1,60 @@
+
 import 'package:flutter/material.dart';
+import 'package:islami_online_c13/home/tabs/radio/radio_container.dart';
+import 'package:islami_online_c13/home/tabs/radio/reciters_container.dart';
 import 'package:islami_online_c13/utils/app_colors.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
-import '../../../utils/my_theme_data.dart';
+class RadioTab extends StatefulWidget {
+  const RadioTab({super.key});
 
-class RadioTab extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    return Stack(children: [
-      Image.asset(
-        "assets/images/",
-        width: double.infinity,
-        fit: BoxFit.fitWidth,
-      ),
-      Scaffold(
-        body: Column(
-          children: [
-            Expanded(child: Image.asset("assets/images/radioIcon.png")),
-            Text("إذاعة القرآن الكريم ",style:Theme.of(context).textTheme.bodyLarge,),
-            Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children:  [
-                  Icon(Icons.skip_previous,color: AppColors.primaryDark,size:60,),
-                  Icon(Icons.play_arrow,color: AppColors.primaryDark,size:60,),
-                  Icon(Icons.skip_next,color: AppColors.primaryDark,size:60,)
-                ],
-              ),
-            )
-
-          ],
-        ),
-      )
-    ]);
-  }
+  State<RadioTab> createState() => _RadioTabState();
 }
 
-
+class _RadioTabState extends State<RadioTab> {
+  int currentIndex = 0;
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset('assets/images/logo.png'),
+            ToggleSwitch(
+              minWidth: 185,
+              minHeight: 40.0,
+              fontSize: 16.0,
+              initialLabelIndex: currentIndex,
+              activeBgColor:  [AppColors.primaryDark],
+              activeFgColor: AppColors.blackColor,
+              inactiveBgColor: AppColors.blackBgColor,
+              inactiveFgColor: AppColors.whiteColor,
+              totalSwitches: 2,
+              labels: const [
+                'Radio',
+                'Reciters',
+              ],
+              onToggle: (index) {
+                setState(() {
+                  if (index == 0) {
+                    currentIndex = 0;
+                  }
+                  if (index == 1) {
+                    currentIndex += 1;
+                  }
+                });
+              },
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            currentIndex == 1 ?  RecitersContainer() :  RadioContainer(),
+          ],
+        ),
+      ),
+    );
+  }
+}
